@@ -1,21 +1,34 @@
 /**
-* opentopd is a clean HTML5 theme for LuCI. It is based on luci-theme-Argon and MUI
-* luci-theme-opentopd
-*   Copyright 2019-2021 sirpdboy <sirpdboy@qq.com>
-*	Have a bug? Please create an issue here on GitHub!
-*	https://github.com/sirpdboy/luci-theme-opentopd/issues
-*	
-*	luci-theme-material:
-*	Copyright 2015 Lutty Yang
-*
-*	luci-theme-bootstrap:
-*	Copyright 2008 Steven Barth <steven@midlink.org>
-*	Copyright 2008-2016 Jo-Philipp Wich <jow@openwrt.org>
-*	Copyright 2012 David Menting <david@nut-bolt.nl>
-*	MUI:
-*	https://github.com/muicss/mui
-*
-*	Licensed to the public under the Apache License 2.0
+ *  Argon is a clean HTML5 theme for LuCI. It is based on luci-theme-material and Argon Template
+ *
+ *  luci-theme-argon
+ *      Copyright 2019 Jerrykuku <jerrykuku@qq.com>
+ *
+ *  Have a bug? Please create an issue here on GitHub!
+ *      https://github.com/jerrykuku/luci-theme-argon/issues
+ *
+ *  luci-theme-bootstrap:
+ *      Copyright 2008 Steven Barth <steven@midlink.org>
+ *      Copyright 2008 Jo-Philipp Wich <jow@openwrt.org>
+ *      Copyright 2012 David Menting <david@nut-bolt.nl>
+ *
+ *  MUI:
+ *      https://github.com/muicss/mui
+ *
+ *  luci-theme-material:
+ *      https://github.com/LuttyYang/luci-theme-material/
+ *
+ *  Agron Theme
+ *	    https://demos.creative-tim.com/argon-dashboard/index.html
+ *
+ *  Login background
+ *      https://unsplash.com/
+ *
+ *  Licensed to the public under the Apache License 2.0
+ */
+
+/*
+ *  Font generate by Icomoon<icomoon.io>
  */
 (function ($) {
     $(".main > .loading").fadeOut();
@@ -59,7 +72,25 @@
             luciLocation = ["Main", "Login"];
             return true;
         }
+        $(".main > .main-left > .nav > .slide > .active").next(".slide-menu").stop(true).slideUp("fast");
+        $(".main > .main-left > .nav > .slide > .menu").removeClass("active");
+        $(".main > .main-left > .nav > .slide > .menu").each(function () {
+            var ulNode = $(this);
 
+            ulNode.next().find("a").each(function () {
+                var that = $(this);
+                var href = that.attr("href");
+
+                if (href.indexOf(nodeUrl) != -1) {
+                    ulNode.click();
+                    ulNode.next(".slide-menu").stop(true, true);
+                    lastNode = that.parent();
+                    lastNode.addClass("active");
+                    ret = true;
+                    return true;
+                }
+            });
+        });
         return ret;
     }
 
@@ -87,6 +118,18 @@
         }
 
     });
+
+
+
+
+// define what element should be observed by the observer
+// and what types of mutations trigger the callback
+    if ($("#cbi-dhcp-lan-ignore").length > 0) {
+        observer.observe(document.getElementById("cbi-dhcp-lan-ignore"), {
+            subtree: true,
+            attributes: true
+        });
+    }
 
     /**
      * hook menu click and add the hash
@@ -123,12 +166,7 @@
     /**
      * get current node and open it
      */
-    if (getCurrentNodeByUrl()) {
-        mainNodeName = "node-" + luciLocation[0] + "-" + luciLocation[1];
-        mainNodeName = mainNodeName.replace(/[ \t\n\r\/]+/g, "_").toLowerCase();
-        $("body").addClass(mainNodeName);
-	
-    }
+    
     $(".cbi-button-up").val("");
     $(".cbi-button-down").val("");
 
