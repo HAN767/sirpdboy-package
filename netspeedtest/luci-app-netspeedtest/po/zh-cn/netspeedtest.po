@@ -13,18 +13,41 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.0.6\n"
 
-msgid "Netspeedtest"
+msgid "Net Speedtest"
 msgstr "网速测试"
 
-msgid "Network speed diagnosis test (including intranet and extranet)"
-msgstr "网络速度诊断测试（包括内网和外网）"
-
-msgid "iperf3 lanspeedtest"
-msgstr "iperf3 内网测速"
-
 msgid "Network speed diagnosis test (including intranet and extranet)<br/>For specific usage, see:"
-msgstr "网络速度诊断测试（包括内网和外网）<br/>具体使用参见:"
+msgstr "网络速度诊断测试（包括内网、外网、特定端口服务器测速）<br/>使用说明见:"
 
+msgid "Lan Speedtest Iperf3"
+msgstr "内网iperf3吞吐测速"
+
+msgid "Lan Speedtest Web"
+msgstr "内网测速网页版"
+
+msgid "Running state"
+msgstr "运行状态"
+
+msgid "The Iperf3 service is running."
+msgstr "iperf3服务已启动"
+
+msgid "The Iperf3 service is not running."
+msgstr "iperf3服务未启动"
+
+msgid "Iperf3 Status"
+msgstr "iperf3服务状态"
+
+msgid "The Speedtestweb service is running."
+msgstr "网页测速服务已启动"
+
+msgid "The Speedtestweb service is not running."
+msgstr "网页测速服务未启动"
+
+msgid "Speedtestweb Status"
+msgstr "网页测速服务状态"
+
+msgid "</br>For specific usage, see:"
+msgstr "</br>具体使用方法参见："
 
 msgid "iperfstart"
 msgstr "iperf服务启动"
@@ -36,7 +59,7 @@ msgid "Perform operation"
 msgstr "执行操作"
 
 msgid "iperf3 instructions"
-msgstr "iperf3 使用说明"
+msgstr "iperf3使用说明"
 
 msgid "Test speed service started"
 msgstr "测试速度服务已经启动"
@@ -53,10 +76,10 @@ msgstr "国内下密码："
 msgid "Iperf3 speed measurement software download"
 msgstr "iperf3测速软件下载"
 
-msgid "wanspeedtest"
+msgid "Wan Speedtest"
 msgstr "宽带速率测试"
 
-msgid "Perform wanspeedtest"
+msgid "Perform WanSpeedtest"
 msgstr "执行宽带测速"
 
 msgid "Operation execution complete"
@@ -67,4 +90,7 @@ msgstr "网速测试中，请稍等1分钟"
 
 msgid "Download from foreign official websites"
 msgstr "国外官网"
+
+msgid "Server Port Speedtest"
+msgstr "端口延迟测试"
 

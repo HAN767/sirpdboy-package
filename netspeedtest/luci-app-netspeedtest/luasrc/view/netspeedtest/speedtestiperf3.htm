@@ -1,21 +1,22 @@
-
-<%
-local fs = require "nixio.fs"
-
-%>
+<%#
+ Copyright 2020-2022 sirpdboy Wich <sirpdboy@qq.com>
+ https://github.com/sirpdboy/netspeedtest
+ Licensed to the public under the Apache License 2.0.
+-%>
 
 <script type="text/javascript" src="<%=resource%>/cbi.js?v=1.1"></script>
+<%+cbi/valueheader%>
 <script type="text/javascript">//<![CDATA[
-	var stxhr = new XHR();
 
+	var stxhr = new XHR();
 	function update_status(field, proto)
 	{
 		var tool = field.name;
 		var addr = field.value;
 		var protocol = proto ;
         
-		var legend = document.getElementById('test-rc-legend');
-		var output = document.getElementById('test-rc-output');
+		var legend = document.getElementById('test-iperf-legend');
+		var output = document.getElementById('test-iperf-output');
 		if (legend && output)
 		{
 			output.innerHTML =
@@ -50,7 +51,8 @@ local fs = require "nixio.fs"
 //]]></script>
 
 <form method="post" action="<%=url('admin/network/netspeedtest')%>">
-    <div style="width:100%; float:left">
+	<div class="cbi-map">
+		<fieldset class="cbi-section">
       <table>
 
         <tr><td  class="cbi-value-title"  ><input style="margin: 5px 0"  type="hidden" value="" name="iperf" />
@@ -72,13 +74,16 @@ local fs = require "nixio.fs"
         </tr>
 
       </table>
-
-
+		</fieldset>
+	</div>
   <fieldset class="cbi-section" style="display:none">
-    <legend id="test-rc-legend">
+    <legend id="test-iperf-legend">
     <%:Collecting data...%>
     </legend>
-    <span id="test-rc-output"></span>
+    <span id="test-iperf-output"></span>
   </fieldset>
-</div>
+
+
 </form>
+
+<%+cbi/valuefooter%>
