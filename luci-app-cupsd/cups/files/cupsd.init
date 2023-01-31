@@ -15,6 +15,7 @@ get_config() {
 
 cups_prepare() {
 	pgrep -f $PROG | xargs kill -9 >/dev/null 2>&1 
+	logger -t cupsd -p warn "cupsd is stop."
 }
 
 cups_set(){
