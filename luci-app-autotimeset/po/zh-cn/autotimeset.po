@@ -8,11 +8,17 @@ msgstr "N1-N5连续，N1,N3,N5不连续，*/N表示每N小时或每N分钟。月
 msgid "Scheduled Setting"
 msgstr "定时设置"
 
+msgid "Scheduled Set"
+msgstr "任务设置"
+
 msgid "Test/Verify Settings"
 msgstr "测试/验证设置"
 
 msgid "Scheduled Type"
 msgstr "定时类型"
+
+msgid "Log"
+msgstr "日志"
 
 msgid "Scheduled Reboot"
 msgstr "定时重启机器"

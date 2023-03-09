@@ -3,7 +3,10 @@
 
 START=95
 STOP=10
-
+Log=/etc/autotimeset/autotimeset.log
+TMP=/etc/autotimeset
+[ ! -d $TMP ] && mkdir -p $TMP 2>/dev/null
+[ -s $LOG ] && echo ' ' >> $LOG
 run_autotimeset()
 {
 ssum=$(grep -c stime /etc/config/autotimeset)

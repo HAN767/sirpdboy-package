@@ -1,22 +1,39 @@
 #!/bin/sh
 # author 2021 jjm2473
 # author 2020-2023 sirpdboy
+TMP_T=/var/autotimeset/autotimeset.tmp
+LOG=/etc/autotimeset/autotimeset.log
+log(){
+	echo "$(date +'%Y-%m-%d %H:%M:%S') $*" >> $LOG
+}
+
+limit_log() {
+	local logf=$1
+	[ ! -f "$logf" ] && return
+	local sc=100
+	[ -n "$2" ] && sc=$2
+	local count=$(grep -c "" $logf)
+	if [ $count -gt $sc ];then
+		let count=count-$sc
+		sed -i "1,$count d" $logf
+	fi
+}
 
 remwan3() {
 i=0
-while [[ $i -lt 5 ]]
+while [[ $i -lt 3 ]]
 do    
 
     status=$(/usr/sbin/mwan3 status | grep error)
     if [ -z $status ]; then
-        echo  "Mwan3 is OK"
+        log  "Mwan3 is OK"
 	break
     else
-        echo "mwan3 restarting $i... $status"
+        log "mwan3 restarting $i... $status"  
         /usr/sbin/mwan3 restart
     fi
     i=$(($i + 1))
-    sleep 60
+    sleep 30
 done
 }
 
@@ -80,8 +97,8 @@ trigger() {
 		/etc/init.d/samba4 restart
 		;;
 	restartwan)
-		# ifdown wan 
 		ifup wan
+		log  "Redial succeeded!"
 		;;
 		
 	closewan)
@@ -91,17 +108,16 @@ trigger() {
 		disreconnwan
 		if [ $PingErr = 1 ]; then
 		  ifup wan
+		  log  "Redial succeeded!"
 		fi
 		;;
 	restartmwan3)
 		remwan3
-		if [ $PingErr = 1 ]; then
-		  ifup wan
-		fi
 		;;
 	esac
 }
 
+limit_log $LOG 200
 PingErr=0
-logger -p warn -t "autotimeset" "Automatic timing operation execution operation:$@, execution time: `date `" && trigger $@
+log  "Scheduled operation:$@" && trigger $@
 
