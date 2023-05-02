@@ -3,9 +3,9 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-wizard
-PKG_VERSION:=1.5
-PKG_RELEASE:=20
+PKG_NAME:=netwizard
+PKG_VERSION:=1.7
+PKG_RELEASE:=26
 
 PKG_LICENSE:=GPLv3
 PKG_LICENSE_FILES:=LICENSE
@@ -15,17 +15,17 @@ LUCI_TITLE:=LuCI Support for Wizard
 LUCI_DEPENDS:=+luci-compat
 LUCI_PKGARCH:=all
 
-define Package/$(PKG_NAME)/conffiles
-/etc/config/wizard
+define Package/luci-app-$(PKG_NAME)/conffiles
+/etc/config/$(PKG_NAME)
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
-define Package/luci-app-wizard/postinst
+define Package/luci-app-$(PKG_NAME)/postinst
 #!/bin/sh
 if [ -z "$$IPKG_INSTROOT" ]; then
-  ( . /etc/uci-defaults/99-uci-defaults )
-  rm -f /etc/uci-defaults/99-uci-defaults
+  ( . /etc/uci-defaults/99-uci-$(PKG_NAME)-defaults )
+  rm -f /etc/uci-defaults/99-uci-$(PKG_NAME)-defaults
   rm -rf /tmp/luci*
 fi
 exit 0
