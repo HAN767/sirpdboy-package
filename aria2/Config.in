@@ -61,19 +61,19 @@ config ARIA2_BITTORRENT
 config ARIA2_METALINK
 	bool "Enable Metalink Support"
 	depends on !ARIA2_NOXML
-	default y
+	default n
 
 config ARIA2_SFTP
 	bool "Enable SFTP Support"
-	default y
+	default n
 
 config ARIA2_ASYNC_DNS
 	bool "Enable Async DNS Support"
-	default y
+	default n
 
 config ARIA2_COOKIE
 	bool "Enable Firefox3/Chromium Cookie Support"
-	default y
+	default n
 
 config ARIA2_WEBSOCKET
 	bool "Enable JSON-RPC over WebSocket Support"

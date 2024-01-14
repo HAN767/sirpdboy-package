@@ -10,6 +10,7 @@
 	local uilist = {
 		supported = {
 			["ariang"] = "AriaNg",
+			["ariang-nginx"] = "AriaNg",
 			["webui-aria2"] = "WebUI-Aria2",
 			["yaaw"] = "YAAW"
 		},
@@ -22,21 +23,19 @@
 			has_ui = true
 		end
 	end
-	
-	local ar_state = (luci.sys.call("ps 2>/dev/null | grep aria2c 2>/dev/null | grep /usr/bin >/dev/null") == 0)
 %>
 
 <fieldset class="cbi-section">
 	<p id="aria2_status">
 		<em><%:Collecting data...%></em>
 	</p>
-	<% if has_ui and ar_state then %>
+	<% if has_ui then %>
 	<p>
 		<%:Installed web interface: %>
 		<%- for _, v in pairs(uilist.installed) do %>
-		<input type="button" class="cbi-button cbi-button-apply" style="margin: 0 5px;" value="<%=uilist.supported[v]%>" onclick="openWebInterface('<%=v%>');" />
+		<input type="button" class="cbi-button cbi-button-reload" style="margin: 0 5px;" value="<%=uilist.supported[v]%>" onclick="openWebInterface('<%=v%>');" />
 		<%- end %>
-	<p>
+	</p>
 	<% end %>
 </fieldset>
 
@@ -46,8 +45,8 @@ XHR.poll(5, '<%=url("admin/nas/aria2/status")%>', null,
 		var tb = document.getElementById('aria2_status');
 		if (data && tb) {
 			tb.innerHTML = data.running
-				? '<em><b><font color=green><%:The Aria2 service is running.%>'
-				: '<em><b><font color=red><%:The Aria2 service is not running.%>';
+				? '<em style=\"color:green\"><b><%:The Aria2 service is running.%></b></em>'
+				: '<em style=\"color:red\"><b><%:The Aria2 service is not running.%></b></em>';
 		}
 	}
 );
