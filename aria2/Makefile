@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012-2021 OpenWrt.org
+# Copyright (C) 2012-2018 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,15 +7,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aria2
-PKG_VERSION:=1.37.0
-PKG_RELEASE:=1
+PKG_VERSION:=1.36.0
+PKG_RELEASE:=21
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=https://github.com/aria2/aria2/releases/download/release-$(PKG_VERSION)/
-PKG_HASH:=60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
+PKG_HASH:=skip
 PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
-PKG_USE_MIPS16:=0
 
 PKG_MAINTAINER:=Imre Kaloz <kaloz@openwrt.org>, \
 	Hsing-Wang Liao <kuoruan@gmail.com>
@@ -56,7 +55,7 @@ define Package/aria2
   DEPENDS:=+zlib +libstdcpp +ARIA2_OPENSSL:libopenssl +ARIA2_GNUTLS:libgnutls \
 	+ARIA2_NETTLE:libnettle +ARIA2_LIBGCRYPT:libgcrypt +ARIA2_GMP:libgmp \
 	+ARIA2_LIBXML2:libxml2 +ARIA2_EXPAT:libexpat +ARIA2_SFTP:libssh2 \
-	+ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3 +block-mount
+	+ARIA2_ASYNC_DNS:libcares +ARIA2_COOKIE:libsqlite3
   USERID:=aria2=6800:aria2=6800
 endef
 
@@ -85,11 +84,25 @@ CONFIGURE_ARGS += \
 	--with-libz
 
 TARGET_CXXFLAGS += -ffunction-sections -fdata-sections -flto
-TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed,--no-undefined,--no-allow-shlib-undefined -flto
+TARGET_LDFLAGS += -Wl,--gc-sections -flto
 
 define Package/aria2/conffiles
 /etc/config/aria2
 endef
+
+define Download/aria2.conf
+  URL:=https://github.com/P3TERX/aria2.conf/archive
+  URL_FILE:=master.zip
+  FILE:=aria2.conf
+  HASH:=skip
+endef
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	unzip $(DL_DIR)/aria2.conf -d $(PKG_BUILD_DIR)/
+	sed -i '/rpc-secret/d' $(PKG_BUILD_DIR)/aria2.conf-master/*
+endef
+
 
 define Package/aria2/install
 	$(INSTALL_DIR) $(1)/usr/bin
@@ -100,9 +113,10 @@ define Package/aria2/install
 
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./files/aria2.conf $(1)/etc/config/aria2
-
-	$(INSTALL_DIR) $(1)/etc/uci-defaults
-	$(INSTALL_BIN) ./files/99_aria2-settings $(1)/etc/uci-defaults/99_aria2-settings
+	
+	$(INSTALL_DIR) $(1)/usr/share/aria2
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/aria2.conf-master/* $(1)/usr/share/aria2/
 endef
 
+$(eval $(call Download,aria2.conf))
 $(eval $(call BuildPackage,aria2))

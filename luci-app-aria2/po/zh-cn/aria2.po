@@ -716,8 +716,8 @@ msgid "The directory to store the downloaded file. eg. <code>/mnt/sda1</code>"
 msgstr "用于放置下载文件的目录。例如：<code>/mnt/sda1</code>"
 
 #: applications/luci-app-aria2/luasrc/model/cbi/aria2/config.lua:81
-msgid "Log save path"
-msgstr "日志保存路径。"
+msgid "The file name of the log file."
+msgstr "日志文件名。"
 
 #: applications/luci-app-aria2/luasrc/model/cbi/aria2/config.lua:249
 msgid "The maximum number of connections to one server for each download."
@@ -829,8 +829,8 @@ msgid "prealloc"
 msgstr ""
 
 #: applications/luci-app-aria2/luasrc/model/cbi/aria2/config.lua:456
-msgid "The directory where the log files are saved"
-msgstr "日志文件的保存目录"
+msgid "trunc"
+msgstr ""
 
 msgid "AriaNg"
 msgstr "打开AriaNg的Web管理界面"
@@ -841,10 +841,10 @@ msgstr "打开WebUI-Aria2的Web管理界面"
 msgid "YAAW"
 msgstr "打开YAAW的Web管理界面"
 
-msgid "Enable Aria2 pro"
+msgid "Enable Aria2 Pro"
 msgstr "启用扩展功能"
 
-msgid "Aria2 pro file"
+msgid "Aria2 Pro file"
 msgstr "扩展保存目录"
 
 msgid "Use the configuration scheme of p3terx to realize the enhancement and expansion of aria2 function."
@@ -869,15 +869,3 @@ msgstr "打开WebUI-Aria2的Web管理界面"
 
 msgid "YAAW"
 msgstr "打开YAAW的Web管理界面"
-
-msgid "Current version of aria2: <b style=\"color:green\"> %s"
-msgstr "当前Aria2的版本: <b style=\"color:green\"> %s"
-
-msgid "Distributed Hash Table"
-msgstr "分布式哈希表"
-
-msgid "Local Peer Discovery"
-msgstr "本地对等发现"
-
-msgid "Enable peer exchange"
-msgstr "启用对等交换"

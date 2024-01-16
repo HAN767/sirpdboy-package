@@ -34,7 +34,7 @@ endchoice
 
 choice
 	prompt "XML Library"
-	default ARIA2_EXPAT
+	default ARIA2_NOXML
 
 config ARIA2_LIBXML2
 	bool "Libxml2"
